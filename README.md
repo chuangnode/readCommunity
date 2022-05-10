@@ -1,2 +1,2 @@
 # readCommunity
-learning gin gorm 
+learning git gorm
