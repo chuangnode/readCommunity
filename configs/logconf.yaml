@@ -1,0 +1,6 @@
+Log:
+  Level: "debug"
+  Filename: "logs/gin_zap.logger"
+  MaxSize: 200
+  MaxAge: 7
+  MaxBackups: 10
