@@ -26,7 +26,6 @@ func GetAuth(c *gin.Context) {
 	if err := c.ShouldBind(&auth); err != nil {
 		fmt.Printf("c.shouldbindjson failed,err:", err)
 	}
-	fmt.Println("v1/auth:>>", auth.UserName, auth.Password)
 	code := errcode.Success
 	data := make(map[string]interface{})
 	password := cryptutil.EncryptUtil(auth.Password, auth.UserName)
@@ -34,20 +33,20 @@ func GetAuth(c *gin.Context) {
 	/*if err := validation.ValidateStruct(auth); err != nil {
 		code = errcode.INVALID_PARAMS
 	} else {*/
-		isExist, err := service.CheckAuth(auth.UserName, password)
+	isExist, err := service.CheckAuth(auth.UserName, password)
+	if err != nil {
+		code = errcode.ErrPasswordIncorrect
+	}
+	if isExist {
+		token, err := jwt.GenerateToken(auth.UserName, password)
 		if err != nil {
-			code = errcode.ErrPasswordIncorrect
-		}
-		if isExist {
-			token, err := jwt.GenerateToken(auth.UserName, password)
-			if err != nil {
-				code = errcode.ErrEncodingFailed
-			} else {
-				data["token"] = token
-			}
+			code = errcode.ErrEncodingFailed
 		} else {
-			code = errcode.ErrUserNameNotExist
+			data["token"] = token
 		}
+	} else {
+		code = errcode.ErrUserNameNotExist
+	}
 	//}
 	app.ResponseInfo(c, code, data)
 }

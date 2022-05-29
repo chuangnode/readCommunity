@@ -3,9 +3,9 @@ package api
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"readCommunity/initialize"
 	"readCommunity/internal/pkg/app"
 	"readCommunity/internal/pkg/errcode"
-	"readCommunity/internal/pkg/validation"
 	"readCommunity/internal/userserver/service"
 )
 
@@ -16,7 +16,7 @@ func Login(c *gin.Context) {
 		app.ResponseInfo(c, errcode.ErrBind, nil)
 		return
 	}
-	if err := validation.ValidateStruct(&loginParams); err != nil {
+	if err := initialize.ValidateStruct(&loginParams); err != nil {
 		fmt.Printf("validate failer,err: %v", err)
 	}
 	isTrue, err := service.LoginService(loginParams)

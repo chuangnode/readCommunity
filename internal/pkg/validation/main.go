@@ -3,26 +3,41 @@ package validation
 import (
 	"fmt"
 	"github.com/dlclark/regexp2"
+	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+	"net/http"
+	"readCommunity/global"
 	"regexp"
+	"strings"
 )
 
-var validate *validator.Validate
-
 // 初始化中文翻译
-func init() {
+/*func init() {
 	validate = validator.New()
 	_ = validate.RegisterValidation("validatepwd", ValidatePwd)
 	_ = validate.RegisterValidation("validatePhone", validatePhone)
 }
+*/
+func HandleValidatorError(c *gin.Context, err error) {
+	errs, ok := err.(validator.ValidationErrors)
+	if !ok {
+		c.JSON(http.StatusOK, gin.H{
+			"msg": err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusBadRequest, gin.H{
+		"error": RemoveTopStruct(errs.Translate(global.Trans)),
+	})
+	return
+}
 
-// ValidateStruct: 验证结构体
-func ValidateStruct(dataStruct interface{}) error {
-	//zh_ch := zh.New()
-	//uni := ut.New(zh_ch)
-	//trans, _ := uni.GetTranslator("zh")
-	err := validate.Struct(dataStruct)
-	return err
+func RemoveTopStruct(fields map[string]string) map[string]string {
+	rsp := map[string]string{}
+	for field, err := range fields {
+		rsp[field[strings.Index(field, ".")+1:]] = err
+	}
+	return rsp
 }
 
 // ValidatePwd: 验证密码
@@ -41,7 +56,7 @@ func ValidatePwd(fl validator.FieldLevel) bool {
 }
 
 // validatePhone: 验证手机号
-func validatePhone(fl validator.FieldLevel) bool {
+func ValidatePhone(fl validator.FieldLevel) bool {
 	// 匹配规则 1.第一位为1； 2.第2位[3-9]; 3.[1-9]{9}
 	regPhone := "^1[3-9]{1}\\d{9}$"
 	reg := regexp.MustCompile(regPhone)

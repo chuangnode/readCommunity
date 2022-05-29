@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
-	_ "readCommunity/initconfig"
-	"readCommunity/internal/pkg/middleware/logger"
+	"readCommunity/initialize"
+	_ "readCommunity/initialize"
 	"readCommunity/routers"
 )
 
@@ -25,9 +25,11 @@ func main() {
 		2.图书管理、分类管理
 		3.收藏、评论、评分
 	*/
-
+	if err := initialize.InitTrans("zh"); err != nil {
+		fmt.Printf("inittrans error:>>", err)
+	}
 	// init logger
-	if err := logger.InitLogger(); err != nil {
+	if err := initialize.InitLogger(); err != nil {
 		fmt.Printf("init logger failed, err: %v\n", err)
 		return
 	}

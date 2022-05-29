@@ -78,10 +78,9 @@ func (b Book) DeleteBook(id int, data interface{}) error {
 
 }
 
-func (b Book) GetBookList() (books []Book,err error) {
+func (b Book) GetBookList() (books []Book, err error) {
 	db := global.DB
 	result := db.Find(&books)
-	fmt.Println("rows: ", result.RowsAffected)
 	return books, result.Error
 }
 

@@ -1,7 +1,6 @@
 package service
 
 import (
-	"fmt"
 	"readCommunity/internal/pkg/utils/cryptutil"
 	"readCommunity/internal/userserver/model"
 )
@@ -14,7 +13,6 @@ type LoginParams struct {
 func LoginService(params LoginParams) (bool, error) {
 	var user model.User
 	pwd := cryptutil.EncryptUtil(params.Password, params.UserName)
-	fmt.Printf("password: %v\n", pwd)
 	istrue, err := user.CheckPwd(params.UserName, pwd)
 	if err != nil {
 		return false, err

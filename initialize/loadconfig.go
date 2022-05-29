@@ -1,4 +1,4 @@
-package initconfig
+package initialize
 
 import (
 	"fmt"
@@ -7,6 +7,7 @@ import (
 
 func LoadConfig() {
 	viper.AddConfigPath("configs")
+
 	if err := viper.ReadInConfig(); err != nil {
 		fmt.Println("viper read config failed, ", err)
 	}

@@ -1,0 +1,2 @@
+{"level":"INFO","time":"2022-05-29T21:55:15.971+0800","caller":"v1/register.go:75","msg":"register failed","error":"Error 1062: Duplicate entry 'lcc' for key 'rd_user.user_name'"}
+{"level":"INFO","time":"2022-05-29T21:55:15.972+0800","caller":"logger/logger.go:26","msg":"/register","status":200,"method":"POST","path":"/register","query":"","ip":"::1","user-agent":"PostmanRuntime/7.29.0","errors":"","cost":0.005990083}

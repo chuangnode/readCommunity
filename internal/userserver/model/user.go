@@ -1,11 +1,9 @@
 package model
 
 import (
-	"fmt"
 	"gorm.io/gorm"
 	"readCommunity/global"
 )
-
 
 type User struct {
 	gorm.Model
@@ -31,9 +29,8 @@ func (u User) AddUser(user User) error {
 	return global.DB.Create(&user).Error
 }
 
-func (u User)CheckAuth(username, password string) (bool, error) {
+func (u User) CheckAuth(username, password string) (bool, error) {
 	var user User
-	fmt.Println("model.user:>>>", username, password)
 	err := global.DB.Where(User{UserName: username, Password: password}).First(&user).Error
 	if err != nil {
 		return false, err
@@ -43,6 +40,7 @@ func (u User)CheckAuth(username, password string) (bool, error) {
 	}
 	return false, nil
 }
+
 // 验证用户名、密码正确，登陆
 func (u User) CheckPwd(username, password string) (isTrue bool, err error) {
 	var count int64

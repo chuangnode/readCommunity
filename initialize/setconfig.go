@@ -1,4 +1,4 @@
-package initconfig
+package initialize
 
 import (
 	"bufio"
@@ -12,8 +12,8 @@ import (
 
 func SetConfig() {
 	encrypt := cryptutil.Encrypt([]byte("876543210.adfjadf"))
-	fmt.Println("encrypted data:>>>", hex.EncodeToString(encrypt))
-	file,err := os.OpenFile("./configs/config.logconf.yaml", os.O_RDWR, 0666)
+	//fmt.Println("encrypted data:>>>", hex.EncodeToString(encrypt))
+	file, err := os.OpenFile("./configs/config.logconf.yaml", os.O_RDWR, 0666)
 	if err != nil {
 		fmt.Printf("open file config.logconf.yaml failed,err:%s", err)
 	}
