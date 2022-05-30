@@ -1,0 +1,18 @@
+AppSecret: 123456
+GinMode: debug
+Database:
+  mysql:
+    username: root
+    password: 12345678Aa.
+    host: localhost
+    port: 3306
+    database: read_community
+CryptKey: 48a0037090d892d168f8d2aef7edcb0f2cee5ca8890e93d16599751eda1f1a734bfeb0dbc18df9c8517593d431854e440fa751c8c616662f583e4acf28dd280e73cb1af3b567c3417931a632d92787f598e6c03b37b8fe4b6de9666e61bd433b16d12686033e832df11d48c846874f8e35b59314d4e2d45fd1db35033dea1e25
+JwtSecret: 123456
+
+Log:
+  Level: "debug"
+  Filename: "logs/gin_zap.log"
+  MaxSize: 200
+  MaxAge: 7
+  MaxBackups: 10

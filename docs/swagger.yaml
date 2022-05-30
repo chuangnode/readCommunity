@@ -1,0 +1,35 @@
+basePath: /api/v1
+host: localhost:8080
+info:
+  contact: {}
+  description: this is a read community
+  title: Swagger API
+  version: "1.0"
+paths:
+  /auth:
+    post:
+      parameters:
+      - description: username
+        in: body
+        name: username
+        required: true
+        schema:
+          type: string
+      - description: password
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code": 200,"data":{},"msg":"ok"}'
+          schema:
+            type: string
+      summary: 生成token
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"
